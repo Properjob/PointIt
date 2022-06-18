@@ -1,0 +1,19 @@
+.container {
+  @apply p-4 flex flex-col items-center;
+}
+
+.label {
+  @apply mb-2 text-sm font-medium text-gray-600 dark:text-gray-400;
+}
+
+.value {
+  @apply text-3xl font-bold;
+}
+
+.blue {
+  @apply text-blue-600;
+}
+
+.red {
+  @apply text-red-600;
+}

@@ -1,0 +1,7 @@
+.container {
+  @apply block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300;
+}
+
+.options {
+  @apply flex flex-row space-x-3 mt-2;
+}
