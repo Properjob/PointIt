@@ -20,5 +20,13 @@
       }
     ],
     "no-param-reassign": ["error", { "props": false }]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.js", "**/*.test.jsx"],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
 }
