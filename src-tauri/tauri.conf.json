@@ -56,10 +56,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 840,
         "resizable": true,
         "title": "PointIt",
-        "width": 800
+        "width": 1280
       }
     ]
   }
