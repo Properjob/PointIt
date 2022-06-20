@@ -108,6 +108,31 @@ export default function App() {
     }
   }, [doc]);
 
+  const handleBaseChange = (type, value) => {
+    setSelected(undefined);
+    if (type === "complexity") {
+      setBaseComplexity(value);
+    }
+    if (type === "effort") {
+      setBaseEffort(value);
+    }
+    if (type === "risk") {
+      setBaseRisk(value);
+    }
+  };
+
+  const handleTargetChange = (type, value) => {
+    if (type === "complexity") {
+      setTargetComplexity(value);
+    }
+    if (type === "effort") {
+      setTargetEffort(value);
+    }
+    if (type === "risk") {
+      setTargetRisk(value);
+    }
+  };
+
   const [name, setName] = useState(undefined);
 
   function closeModal() {
@@ -206,21 +231,21 @@ export default function App() {
             activeColor="red"
             options={fibonacci}
             value={baseRisk}
-            onChange={setBaseRisk}
+            onChange={(value) => handleBaseChange("risk", value)}
           />
           <ToggleButtonGroup
             label="Effort"
             activeColor="red"
             options={fibonacci}
             value={baseEffort}
-            onChange={setBaseEffort}
+            onChange={(value) => handleBaseChange("effort", value)}
           />
           <ToggleButtonGroup
             label="Complexity"
             activeColor="red"
             options={fibonacci}
             value={baseComplexity}
-            onChange={setBaseComplexity}
+            onChange={(value) => handleBaseChange("complexity", value)}
           />
           <div className={styles.statisticContainer}>
             <Statistic label="Average" value={baseAvg} color="red" />
@@ -237,19 +262,19 @@ export default function App() {
             label="Risk"
             options={fibonacci}
             value={targetRisk}
-            onChange={setTargetRisk}
+            onChange={(value) => handleTargetChange("risk", value)}
           />
           <ToggleButtonGroup
             label="Effort"
             options={fibonacci}
             value={targetEffort}
-            onChange={setTargetEffort}
+            onChange={(value) => handleTargetChange("effort", value)}
           />
           <ToggleButtonGroup
             label="Complexity"
             options={fibonacci}
             value={targetComplexity}
-            onChange={setTargetComplexity}
+            onChange={(value) => handleTargetChange("complexity", value)}
           />
           <div className={styles.statisticContainer}>
             <Statistic label="Target Average" value={targetAvg} />
