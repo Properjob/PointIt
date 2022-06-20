@@ -1,4 +1,5 @@
-import { defineConfig } from "vitest/config";
+/* eslint-disable import/no-extraneous-dependencies */
+import { defineConfig } from "vitest";
 import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/

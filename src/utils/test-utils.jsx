@@ -1,8 +1,6 @@
-/* eslint-disable import/export */
+/* eslint-disable import/no-extraneous-dependencies */
 import { cleanup, render } from "@testing-library/react";
-import React, { Suspense } from "react";
-import { afterEach, beforeAll } from "vitest";
-import { PouchDB } from "react-pouchdb";
+import { afterEach } from "vitest";
 
 afterEach(() => {
   cleanup();
