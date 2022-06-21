@@ -5,7 +5,7 @@ description = "A Story Pointing Application"
 authors = ["you"]
 license = ""
 repository = ""
-default-run = "pointit"
+default-run = "PointIt"
 edition = "2021"
 rust-version = "1.57"
 
