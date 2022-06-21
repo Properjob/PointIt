@@ -1,11 +1,11 @@
 [package]
-name = "PointIt"
+name = "pointit"
 version = "0.1.1"
 description = "A Story Pointing Application"
 authors = ["you"]
 license = ""
 repository = ""
-default-run = "PointIt"
+default-run = "pointit"
 edition = "2021"
 rust-version = "1.57"
 
