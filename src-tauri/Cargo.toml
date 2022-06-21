@@ -1,11 +1,11 @@
 [package]
-name = "app"
-version = "0.1.0"
-description = "A Tauri App"
+name = "PointIt"
+version = "0.1.1"
+description = "A Story Pointing Application"
 authors = ["you"]
 license = ""
 repository = ""
-default-run = "app"
+default-run = "pointit"
 edition = "2021"
 rust-version = "1.57"
 
