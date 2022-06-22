@@ -101,7 +101,5 @@ PointRadar.propTypes = {
   keys: PropTypes.arrayOf(
     PropTypes.shape({ id: PropTypes.string, label: PropTypes.string })
   ).isRequired,
-  labels: PropTypes.arrayOf(
-    PropTypes.shape({ id: PropTypes.string, label: PropTypes.string })
-  ).isRequired,
+  labels: PropTypes.objectOf(PropTypes.string).isRequired,
 };
