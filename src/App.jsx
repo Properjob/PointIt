@@ -11,7 +11,6 @@ import ModalDialog from "./components/ModalDialog";
 import CreatePreset from "./forms/CreatePreset";
 
 export default function App() {
-  const [keys, setKeys] = useState([]);
   const [data, setData] = useState([]);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +26,6 @@ export default function App() {
   const fibonacci = [1, 2, 3, 5, 8, 13, 21, 34, 55];
 
   useEffect(() => {
-    setKeys(["base", "target"]);
     setData([
       {
         factor: "effort",
@@ -159,7 +157,14 @@ export default function App() {
   return (
     <div className={styles.gridContainer}>
       <div className={styles.radarColumn}>
-        <PointRadar data={data} keys={keys} />
+        <PointRadar
+          data={data}
+          keys={[
+            { id: "base", label: "Base" },
+            { id: "target", label: "Target" },
+          ]}
+          labels={{ effort: "Effort", risk: "Risk", complexity: "Complexity" }}
+        />
       </div>
 
       <ModalDialog isOpen={isOpen} title="Save Preset" onClose={closeModal}>

@@ -18,6 +18,7 @@
     "@heroicons/react": "^1.0.6",
     "@nivo/core": "^0.79.0",
     "@nivo/radar": "^0.79.1",
+    "@nivo/tooltip": "^0.79.0",
     "@tauri-apps/api": "^1.0.0-rc.7",
     "events": "^3.3.0",
     "pouchdb": "^7.3.0",

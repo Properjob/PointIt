@@ -1,0 +1,3 @@
+.text {
+  @apply font-semibold fill-black dark:fill-white;
+}
