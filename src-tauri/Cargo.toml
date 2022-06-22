@@ -1,6 +1,6 @@
 [package]
 name = "pointit"
-version = "0.1.1"
+version = "0.1.2"
 description = "A Story Pointing Application"
 authors = ["you"]
 license = ""
