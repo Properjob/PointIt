@@ -1,0 +1,7 @@
+.container {
+  @apply flex flex-col space-y-1;
+}
+
+.errorMessage {
+  @apply text-sm text-red-500;
+}

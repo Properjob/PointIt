@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useMemo, Fragment } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useAllDocs, useDB, useGet } from "react-pouchdb";
-import { Dialog, Transition } from "@headlessui/react";
 import Button from "./components/Button";
 import PointRadar from "./components/PointRadar";
 import Select from "./components/Select";
 import Statistic from "./components/Statistic";
 import ToggleButtonGroup from "./components/ToggleButtonGroup";
-import TextField from "./components/TextField";
 
 import styles from "./App.module.css";
+import ModalDialog from "./components/ModalDialog";
+import CreatePreset from "./forms/CreatePreset";
 
 export default function App() {
   const [keys, setKeys] = useState([]);
@@ -55,8 +55,8 @@ export default function App() {
   ]);
 
   const calculateFibonacci = (values) => {
-    const allEntered = values.every((value) => Boolean(value));
-    if (!allEntered) {
+    const noUndefined = values.every((value) => Boolean(value));
+    if (!noUndefined) {
       return [0, 0];
     }
     const avgValue = values.reduce((prev, curr) => prev + curr) / values.length;
@@ -86,13 +86,13 @@ export default function App() {
     [targetComplexity, targetEffort, targetRisk]
   );
 
-  const db = useDB();
-
   const handleTargetReset = () => {
     setTargetComplexity(0);
     setTargetEffort(0);
     setTargetRisk(0);
   };
+
+  const db = useDB();
 
   const options = useAllDocs({ include_docs: true });
 
@@ -133,31 +133,27 @@ export default function App() {
     }
   };
 
-  const [name, setName] = useState(undefined);
-
-  function closeModal() {
+  const closeModal = () => {
     setIsOpen(false);
-  }
-
-  const handleSave = () => {
-    if (name !== undefined) {
-      db.post({
-        name,
-        complexity: targetComplexity,
-        risk: targetRisk,
-        effort: targetEffort,
-      });
-    }
-    closeModal();
   };
 
-  function openModal() {
-    setName(undefined);
+  const openModal = () => {
     setIsOpen(true);
-  }
+  };
 
   const handleTargetSave = () => {
     openModal();
+  };
+
+  const handleTargetSubmit = (formData) => {
+    db.post({
+      name: formData.name,
+      risk: targetRisk,
+      effort: targetEffort,
+      complexity: targetComplexity,
+    });
+
+    closeModal();
   };
 
   return (
@@ -166,53 +162,16 @@ export default function App() {
         <PointRadar data={data} keys={keys} />
       </div>
 
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className={styles.dialogContainer}
-          onClose={() => closeModal()}
-        >
-          <Transition.Child
-            as={Fragment}
-            enter={styles.dialogBackdropEnter}
-            enterFrom={styles.dialogBackdropEnterFrom}
-            enterTo={styles.dialogBackdropEnterTo}
-            leave={styles.dialogBackdropLeave}
-            leaveFrom={styles.dialogBackdropLeaveFrom}
-            leaveTo={styles.dialogBackdropLeaveTo}
-          >
-            <div className={styles.dialogBackdrop} />
-          </Transition.Child>
-
-          <div className={styles.dialogScreen}>
-            <div className={styles.dialogContent}>
-              <Transition.Child
-                as={Fragment}
-                enter={styles.dialogPanelEnter}
-                enterFrom={styles.dialogPanelEnterFrom}
-                enterTo={styles.dialogPanelEnterTo}
-                leave={styles.dialogPanelLeave}
-                leaveFrom={styles.dialogPanelLeaveFrom}
-                leaveTo={styles.dialogPanelLeaveTo}
-              >
-                <Dialog.Panel className={styles.dialogPanel}>
-                  <Dialog.Title as="h3" className={styles.dialogTitle}>
-                    Save As Preset
-                  </Dialog.Title>
-                  <div className={styles.dialogPanelContent}>
-                    <TextField
-                      id="name"
-                      label="Name"
-                      onChange={(e) => setName(e.target.value)}
-                    />
-                    <Button onClick={handleSave}>Save</Button>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
+      <ModalDialog isOpen={isOpen} title="Save Preset" onClose={closeModal}>
+        <CreatePreset
+          onSubmit={handleTargetSubmit}
+          preset={{
+            risk: targetRisk,
+            effort: targetEffort,
+            complexity: targetComplexity,
+          }}
+        />
+      </ModalDialog>
 
       <div className={styles.inputColumn}>
         <div className={styles.baseSection}>
@@ -281,7 +240,9 @@ export default function App() {
             <Statistic label="Calculated Fibonacci" value={targetFib} />
           </div>
           <div className={styles.actionsContainer}>
-            <Button onClick={handleTargetSave}>Save</Button>
+            <Button onClick={handleTargetSave} disabled={targetFib === 0}>
+              Save
+            </Button>
             <Button onClick={handleTargetReset}>Reset</Button>
           </div>
         </div>
