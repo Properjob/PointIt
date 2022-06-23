@@ -19,7 +19,8 @@
         "endOfLine": "lf"
       }
     ],
-    "no-param-reassign": ["error", { "props": false }]
+    "no-param-reassign": ["error", { "props": false }],
+    "no-underscore-dangle": [2, { "allow": ["_id", "_rev"] }]
   },
   "overrides": [
     {

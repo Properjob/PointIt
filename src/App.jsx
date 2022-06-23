@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useAllDocs, useDB, useGet } from "react-pouchdb";
+import { useDB, useFind, useGet } from "react-pouchdb";
 import Button from "./components/Button";
 import PointRadar from "./components/PointRadar";
 import Select from "./components/Select";
@@ -92,11 +92,17 @@ export default function App() {
 
   const db = useDB();
 
-  const options = useAllDocs({ include_docs: true });
+  const presets = useFind({
+    selector: {
+      _id: {
+        $ne: "",
+      },
+    },
+  });
 
   const [selected, setSelected] = useState(undefined);
 
-  const doc = useGet({ id: selected || "" });
+  const doc = useGet({ id: selected || "", live: false });
 
   useEffect(() => {
     if (doc) {
@@ -183,9 +189,9 @@ export default function App() {
           <div className={styles.sectionTitle}>Base</div>
           <Select
             label="Presets"
-            options={options.map((option) => ({
-              value: option.id,
-              displayValue: option.doc.name,
+            options={presets.map((option) => ({
+              value: option._id,
+              displayValue: option.name,
             }))}
             selected={selected}
             onChange={setSelected}
